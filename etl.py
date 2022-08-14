@@ -69,7 +69,7 @@ def create_sessions(data):
     return sessions
 
 
-def dump_sessions(sessions, filename='dump.csv'):
+def dump_sessions(sessions, filename='data/dump.csv'):
     with open(filename, 'w') as f:
         session_headers = ['id', 'name', 'sessionStartTime', 'date', 'tag']
         tabs_headers = [
