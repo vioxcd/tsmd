@@ -34,16 +34,12 @@ def timestamp_to_date(some_date, as_string=True):
     return converted_date
 
 
-def _load_file(file):
-    with open(file, 'r') as f:
-        data = json.load(f)
-    return data
-
-
 def load_data(files):
     data = []
     for file in files:
-        data.extend(_load_file(file))
+        with open(file, 'r') as f:
+            content = json.load(f)
+        data.extend(content)
     return data
 
 
