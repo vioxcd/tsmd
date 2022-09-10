@@ -4,8 +4,6 @@ import os
 import sys
 from datetime import datetime
 
-import pandas as pd
-
 
 def load_data(file):
     with open(file, 'r') as f:
