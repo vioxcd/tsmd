@@ -7,11 +7,6 @@ from tqdm import tqdm
 from typing import List, Optional
 from pydantic import BaseModel
 
-SESSION_FOLDER_PATH = '/home/uchan/Documents/me/browsing-sessions'
-FILES = list(
-    map(lambda p: os.path.join(SESSION_FOLDER_PATH, p),
-        os.listdir(SESSION_FOLDER_PATH)))
-
 
 class Tab(BaseModel):
     id: int
@@ -99,8 +94,15 @@ def dump_sessions(sessions, filename='data/dump.csv'):
 
 
 if __name__ == '__main__':
+    session_folder_path = '/home/uchan/Documents/me/browsing-sessions'
+    files = [
+        os.path.join(session_folder_path, f)
+        for f in os.listdir(session_folder_path)
+        if os.path.isfile(os.path.join(session_folder_path, f))
+    ]
+
     print(f"Loading data...")
-    data = load_data(FILES)
+    data = load_data(files)
 
     print(f"Creating sessions structure...")
     sessions = create_sessions(data)
