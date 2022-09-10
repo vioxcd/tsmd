@@ -19,4 +19,13 @@ PS: I'm using a conda environment to do the analysis (hint: `rs` for my future s
     - Tried to learn data quality toolings (GE, Deequ, Cerberus, Pydantic), and ended-up using Pydantic for this project to parse the JSON schema. The intended use-case for Pydantic was actually just to discover whether there's data type errors within the schema
     - Planning to consume and to later dump the data to its original format using Pydantic
     - Will be adding deduplicator and merger logic (— Me, 14 August 2022)
+4. Fourth try (2nd week of September)
+    - Doing some analysis with the data. Though not as insightful as I'd imagine.
+    - Finishing the deduplicator and merge script (should I use pandas?).
+
+## File structures.
+
+- `etl.py` are used to combine all stored sessions and dump it into a `csv` that can be analyzed.
+- `fun_analysis` folders contain initial exploration and analysis notebook.
+- `tsmdam.py` are the script used to deduplicate and merge sessions.
 
