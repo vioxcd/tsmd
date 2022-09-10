@@ -31,12 +31,15 @@ if __name__ == "__main__":
     if not os.path.isfile(session_file):
         print('The path specified does not exist')
         sys.exit()
+
     """tsmd"""
     print('Loading data...')
     data = load_data(session_file)
 
+    print(f"Total data pre-processing: ", len(data))
     print('Processing data...')
     encountered = set()
+    # Mutates the data
     for d in data:
         for tabs in d['windows'].values():
             duplicated = []
@@ -47,6 +50,41 @@ if __name__ == "__main__":
                     encountered.add(tab['url'])
             for tabId in duplicated:
                 del tabs[tabId]
+
+    """update the broken metadata"""
+    print("Printing windows to delete...")
+    to_remove = []
+    for i, d in enumerate(data):
+        windows_to_delete = []
+        tabs_length = 0
+        for windowId, tabs in d['windows'].items():
+            # check whether windows are still filled (also check for multiple windows)
+            if len(tabs) == 0:
+                windowsNumber = int(d['windowsNumber']) - 1
+                d['windowsNumber'] = windowsNumber
+                if windowsNumber == 0:
+                    # pop or delete operations decrease the index count
+                    # so use i - len(to_remove)
+                    to_remove.append(i - len(to_remove))
+                windows_to_delete.append(windowId)
+                print(f"\tgot {windowsNumber} on {d['name']}")
+            else:
+                tabs_length += len(tabs)
+
+        # update metadata
+        for windowId in windows_to_delete:
+            del d['windows'][windowId]
+            del d['windowsInfo'][windowId]
+        assert d['windowsNumber'] == len(d['windows'].keys()), f"{d['name']}"
+        assert d['windowsNumber'] == len(d['windowsInfo'].keys()), f"{d['name']}"
+        d["tabsNumber"] = tabs_length
+
+    print(f"Number of windows to be removed: {len(to_remove)}")
+    for index in to_remove:
+        d = data.pop(index)
+        assert d['windowsNumber'] == 0, "Windows number should be zero"
+    print(f"Total data post-processing: ", len(data))
+
     """dump data"""
     print('Dumping data...')
     now = (datetime.now().strftime("%Y-%m-%d"))
