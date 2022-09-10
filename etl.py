@@ -1,5 +1,6 @@
 import os
 import csv
+import sys
 import json
 from datetime import datetime
 
@@ -90,12 +91,16 @@ def dump_sessions(sessions, filename='data/dump.csv'):
 
 
 if __name__ == '__main__':
-    session_folder_path = '/home/uchan/Documents/me/browsing-sessions'
-    files = [
-        os.path.join(session_folder_path, f)
-        for f in os.listdir(session_folder_path)
-        if os.path.isfile(os.path.join(session_folder_path, f))
-    ]
+    if len(sys.argv) == 2:
+        # use the passed file path
+        files = [sys.argv[1]]
+    else:
+        default_session_folder_path = '/home/uchan/Documents/me/browsing-sessions'
+        files = [
+            os.path.join(default_session_folder_path, f)
+            for f in os.listdir(default_session_folder_path)
+            if os.path.isfile(os.path.join(default_session_folder_path, f))
+        ]
 
     print(f"Loading data...")
     data = load_data(files)
