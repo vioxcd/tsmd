@@ -1,7 +1,7 @@
+import argparse
+import json
 import os
 import sys
-import json
-import argparse
 from datetime import datetime
 
 import pandas as pd
