@@ -16,7 +16,7 @@ def load_data(file):
 if __name__ == "__main__":
     """Argparse"""
     ap = argparse.ArgumentParser(
-        prog='tsmdam',
+        prog='tsmd',
         usage='%(prog)s [options] path_to_session_file',
         description=
         'Deduplicate and merge exported session data from Tab Session Manager plugin'
@@ -31,8 +31,7 @@ if __name__ == "__main__":
     if not os.path.isfile(session_file):
         print('The path specified does not exist')
         sys.exit()
-
-    """tsmdam"""
+    """tsmd"""
     print('Loading data...')
     data = load_data(session_file)
 

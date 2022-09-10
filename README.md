@@ -1,4 +1,4 @@
-# Tab Session Analysis, Deduplicator, and Merger
+# Tab Session Deduplicator (and a little bit of analysis)
 
 Trying to answer the question of "what I've been doing on [insert period of time]"; I think the question can easily be answered by looking at my browser history. Browser history are generated from using this [session-manager](https://github.com/sienori/Tab-Session-Manager) Firefox extension.
 
@@ -21,11 +21,11 @@ PS: I'm using a conda environment to do the analysis (hint: `rs` for my future s
     - Will be adding deduplicator and merger logic (— Me, 14 August 2022)
 4. Fourth try (2nd week of September)
     - Doing some analysis with the data. Though not as insightful as I'd imagine.
-    - Finishing the deduplicator and merge script (should I use pandas?).
+    - Finishing the deduplicator and changing my mind about merging (maybe later?)
 
 ## File structures.
 
 - `etl.py` are used to combine all stored sessions and dump it into a `csv` that can be analyzed.
 - `fun_analysis` folders contain initial exploration and analysis notebook.
-- `tsmdam.py` are the script used to deduplicate and merge sessions.
+- `tsmd.py` are the script used to deduplicate.
 
