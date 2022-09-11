@@ -1,12 +1,25 @@
 # Tab Session Deduplicator (and a little bit of analysis)
 
-Trying to answer the question of "what I've been doing on [insert period of time]"; I think the question can easily be answered by looking at my browser history. Browser history are generated from using this [session-manager](https://github.com/sienori/Tab-Session-Manager) Firefox extension.
+Initially: trying to answer the question of "what I've been doing on [insert period of time]"; I think the question can easily be answered by looking at my browser history. Browser history are generated from using this [session-manager](https://github.com/sienori/Tab-Session-Manager) Firefox extension.
 
-[Update for August 2022]: I'm planning to create a script that would **deduplicate opened tabs** and **merge similar sessions into one**. As I'm starting to have problems with searching through my mostly duplicated and similar browsing sessions.
+Update for August 2022: I'm planning to create a script that would **deduplicate opened tabs** and **merge similar sessions into one**. As I'm starting to have problems with searching through my mostly duplicated and similar browsing sessions.
 
 PS: I'm using a conda environment to do the analysis (hint: `rs` for my future self)
 
-## What I do.
+## How to use
+
+1. Export session data from Tab Session Manager
+2. Run `tsmd.py [path to exported session]`
+3. Message will appear on the screen if there's any sessions/windows deleted
+4. Dumped data can be found on tsmd's `data` dir
+
+## File structures
+
+- `etl.py` are used to combine all stored sessions and dump it into a `csv` that can be analyzed.
+- `fun_analysis` folders contain initial exploration and analysis notebook.
+- `tsmd.py` are the script used to deduplicate.
+
+## What I do
 
 1. First try (26 Apr)
     - Load all the data (from json to dict) and figure out the keys (schema)
@@ -23,9 +36,9 @@ PS: I'm using a conda environment to do the analysis (hint: `rs` for my future s
     - Doing some analysis with the data. Though not as insightful as I'd imagine.
     - Finishing the deduplicator and changing my mind about merging (maybe later?)
 
-## File structures.
+## Next idea
 
-- `etl.py` are used to combine all stored sessions and dump it into a `csv` that can be analyzed.
-- `fun_analysis` folders contain initial exploration and analysis notebook.
-- `tsmd.py` are the script used to deduplicate.
-
+- Refactor the code (maybe fix metadata while iterating the data)
+- Do the merge part (if ever needed)
+- I think there's a bug in Tab Session Manager's import session functionality. Maybe submit an issue?
+- The analysis looks kinda bland. Some fresh ideas might be: learn possible tags category via topic modeling or NER and group tabs according to that (something like that would group tabs related to `git` or `stackoverflow` together for example)
