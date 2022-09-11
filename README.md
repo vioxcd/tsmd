@@ -5,6 +5,7 @@ Initially: trying to answer the question of "what I've been doing on [insert per
 Update for August 2022: I'm planning to create a script that would **deduplicate opened tabs** and **merge similar sessions into one**. As I'm starting to have problems with searching through my mostly duplicated and similar browsing sessions.
 
 PS: I'm using a conda environment to do the analysis (hint: `rs` for my future self)
+PPS: THIS MIGHT END UP BREAKING YOUR (current) SESSION MANAGEMENT (I'm still trying this out). Keep your last exported session intact, maybe.
 
 ## How to use
 
