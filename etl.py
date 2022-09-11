@@ -1,16 +1,12 @@
 import os
 import csv
+import sys
 import json
 from datetime import datetime
 
 from tqdm import tqdm
 from typing import List, Optional
 from pydantic import BaseModel
-
-SESSION_FOLDER_PATH = '/home/uchan/Documents/me/browsing-sessions'
-FILES = list(
-    map(lambda p: os.path.join(SESSION_FOLDER_PATH, p),
-        os.listdir(SESSION_FOLDER_PATH)))
 
 
 class Tab(BaseModel):
@@ -39,16 +35,12 @@ def timestamp_to_date(some_date, as_string=True):
     return converted_date
 
 
-def _load_file(file):
-    with open(file, 'r') as f:
-        data = json.load(f)
-    return data
-
-
 def load_data(files):
     data = []
     for file in files:
-        data.extend(_load_file(file))
+        with open(file, 'r') as f:
+            content = json.load(f)
+        data.extend(content)
     return data
 
 
@@ -69,7 +61,7 @@ def create_sessions(data):
     return sessions
 
 
-def dump_sessions(sessions, filename='dump.csv'):
+def dump_sessions(sessions, filename='data/dump.csv'):
     with open(filename, 'w') as f:
         session_headers = ['id', 'name', 'sessionStartTime', 'date', 'tag']
         tabs_headers = [
@@ -99,8 +91,19 @@ def dump_sessions(sessions, filename='dump.csv'):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) == 2:
+        # use the passed file path
+        files = [sys.argv[1]]
+    else:
+        default_session_folder_path = '/home/uchan/Documents/me/browsing-sessions'
+        files = [
+            os.path.join(default_session_folder_path, f)
+            for f in os.listdir(default_session_folder_path)
+            if os.path.isfile(os.path.join(default_session_folder_path, f))
+        ]
+
     print(f"Loading data...")
-    data = load_data(FILES)
+    data = load_data(files)
 
     print(f"Creating sessions structure...")
     sessions = create_sessions(data)
