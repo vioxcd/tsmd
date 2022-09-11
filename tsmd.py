@@ -37,7 +37,9 @@ if __name__ == "__main__":
     print(f"Total data pre-processing: ", len(data))
     print('Processing data...')
     encountered = set()
-    # Mutates the data
+    # Sort the data so that newest data are processed first
+    data = sorted(data, key=lambda item: item['date'], reverse=True)
+    # The operation below mutates the data (by deleting duplicate tabs)
     for d in data:
         for tabs in d['windows'].values():
             duplicated = []
@@ -49,7 +51,7 @@ if __name__ == "__main__":
             for tabId in duplicated:
                 del tabs[tabId]
 
-    """update the broken metadata"""
+    """update broken metadata"""
     print("Printing windows to delete...")
     to_remove = []
     for i, d in enumerate(data):
