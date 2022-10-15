@@ -37,6 +37,9 @@ PPS: THIS MIGHT END UP BREAKING YOUR (current) SESSION MANAGEMENT (I'm still try
 4. Fourth try (2nd week of September)
     - Doing some analysis with the data. Though not as insightful as I'd imagine.
     - Finishing the deduplicator and changing my mind about merging (maybe later?)
+5. Not a try, just an update (2nd week of October) **(latest update)**
+    - It's one month in and it's going pretty well so far! Can definitely say that my browsing sessions and search experience have been improving quite dramatically
+    - Added friendly summary README on `fun_analysis` folder
 
 ## Next idea
 
